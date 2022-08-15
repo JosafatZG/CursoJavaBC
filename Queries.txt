@@ -1,0 +1,53 @@
+//Base de Datos: RH
+//Tabla: Empleados //id, nombre, apellido, direccion, email, id_departamento | 4 registros
+//Tabla: Departamentos //id, departamento //RH, contabilidad, servicios, informatica | 4 registros
+//Estructura dao, dto, NO HIBERNATE solo JDBC, CRUD completo (Servicio opcional)
+//Relaciones, consultas por id, eliminar, crear, update, transacciones
+
+CREATE DATABASE RH
+
+create table departamentos
+(
+    id           int auto_increment,
+    departamento varchar(45) null,
+    constraint departamentos_pk
+        primary key (id)
+);
+
+create table empleados
+(
+    id              int auto_increment,
+    nombre          varchar(45) null,
+    apellido        varchar(45) null,
+    direccion       varchar(90) null,
+    email           varchar(45) null,
+    id_departamento int         null,
+    constraint empleados_pk
+        primary key (id),
+    constraint empleados_departamentos_id_fk
+        foreign key (id_departamento) references departamentos (id)
+);
+
+INSERT INTO departamentos(departamento) VALUES ("RH")
+
+INSERT INTO empleados(nombre, apellido, direccion, email, id_departamento) VALUES ("Josafat", "Zavaleta", "San Martin", "JosafatZavaletaG@gmail.com", 1)
+
+
+SELECT e.*, d.departamento FROM empleados AS e " +
+                    "INNER JOIN departamentos AS d ON (e.id_departamento = d.id)
+
+SELECT e.*, d.departamento FROM empleados AS e " +
+                "INNER JOIN departamentos AS d ON (e.id_departamento = d.id) WHERE e.id = ?
+
+UPDATE empleados SET nombre=?, apellido=?, direccion=?, email=?, id_departamento=? WHERE id=?
+
+DELETE FROM empleados WHERE id=?
+
+
+SELECT * FROM departamentos
+
+SELECT * FROM departamentos WHERE id = ?
+
+UPDATE departamentos SET departamento=? WHERE id=?
+
+DELETE FROM departamentos WHERE id=?
